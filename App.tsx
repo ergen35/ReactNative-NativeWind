@@ -6,7 +6,6 @@
  */
 
 import React from 'react';
-import "./global.css";
 import type { PropsWithChildren } from 'react';
 import {
   SafeAreaView,
@@ -17,10 +16,12 @@ import {
   TouchableHighlight,
   TouchableOpacity,
   useColorScheme,
-  View,
+  View, ScrollView,
+  Dimensions,
+  Button
 } from 'react-native';
 
-import { Colors } from 'react-native/Libraries/NewAppScreen';
+import WebView from 'react-native-webview';
 
 function App(): React.JSX.Element {
   const isDarkMode = useColorScheme() === 'dark';
@@ -28,12 +29,17 @@ function App(): React.JSX.Element {
 
 
   return (
-    <SafeAreaView className='flex-1 flex flex-col'>      
-      <Text className='text-3xl text-center text-red-600'>Hello</Text>
-      <TouchableOpacity activeOpacity={0.78} className='bg-blue-500 py-3 px-8 h-auto mx-10 active:bg-red-500 rounded-lg shadow-md'>
-        <Text className='text-white text-center'>Agbomi Yogo</Text>
-      </TouchableOpacity>
-    </SafeAreaView>
+    <ScrollView style={{ display: 'flex', flexDirection: 'column', rowGap: 20, flex: 1 }}>      
+      
+      <WebView style={{ flex: 1, display: 'flex', height: Dimensions.get('window').height }}
+        source={{ uri: "https://synchro-us.com" }}
+        onError={(e) => {
+          console.log(e)
+        }}
+      />
+
+      {/* <Button title='Quit' /> */}
+    </ScrollView>
   );
 }
 
